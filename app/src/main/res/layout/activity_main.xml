@@ -27,7 +27,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Share Text"
-            android:id="@+id/btn_share"/>
+            android:id="@+id/btn_share_text"
+            android:layout_marginBottom="16dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/iv_image"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_android"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Photo"
+                android:layout_weight="1"
+                android:id="@+id/btn_take_photo"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Local Image"
+                android:layout_weight="1"
+                android:id="@+id/btn_load_image"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_share_image"
+            android:text="Share image"/>
 
     </LinearLayout>
 
