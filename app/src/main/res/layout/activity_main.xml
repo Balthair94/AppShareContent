@@ -20,13 +20,13 @@
             android:layout_height="wrap_content"
             android:hint="Text to share"
             android:inputType="textMultiLine"
-            android:lines="5"
+            android:lines="3"
             android:id="@+id/et_content"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Share"
+            android:text="Share Text"
             android:id="@+id/btn_share"/>
 
     </LinearLayout>
