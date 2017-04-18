@@ -2,12 +2,10 @@ package baltamon.mx.appsharecontent;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.FileNotFoundException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (imageUri != null)
-                    shareImge();
+                    shareImage();
                 else
                     Toast.makeText(getApplicationContext(), "You have to choose an image", Toast.LENGTH_SHORT).show();
             }
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "You need to include a text", Toast.LENGTH_SHORT).show();
     }
 
-    public void shareImge(){
+    public void shareImage(){
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
@@ -129,13 +129,18 @@ public class MainActivity extends AppCompatActivity {
                     imageView.setImageBitmap(photo);
                 }
                 break;
+            
             case LOAD_IMAGE:
                 if (resultCode == Activity.RESULT_OK){
                     imageUri = data.getData();
-                    Bitmap myBitmap = BitmapFactory.decodeFile(imageUri.getPath());
+                    try {
+                        Bitmap myBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                        ImageView imageView = (ImageView) findViewById(R.id.iv_image);
+                        imageView.setImageBitmap(myBitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
 
-                    ImageView imageView = (ImageView) findViewById(R.id.iv_image);
-                    imageView.setImageBitmap(myBitmap);
                 }
                 break;
         }

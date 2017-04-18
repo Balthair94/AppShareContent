@@ -35,7 +35,8 @@
             android:layout_height="200dp"
             android:id="@+id/iv_image"
             android:scaleType="fitCenter"
-            android:src="@drawable/icon_android"/>
+            android:src="@drawable/icon_android"
+            android:layout_marginBottom="16dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,14 +46,14 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Photo"
+                android:text="Take Photo"
                 android:layout_weight="1"
                 android:id="@+id/btn_take_photo"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Local Image"
+                android:text="Load Image"
                 android:layout_weight="1"
                 android:id="@+id/btn_load_image"/>
 
