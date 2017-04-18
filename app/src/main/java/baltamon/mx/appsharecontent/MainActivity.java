@@ -2,9 +2,12 @@ package baltamon.mx.appsharecontent;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST = 01;
+    private static final int LOAD_IMAGE = 02;
 
     private Uri imageUri;
 
@@ -95,7 +99,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadImage(){
+        Intent i = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
+        startActivityForResult(i, LOAD_IMAGE);
     }
 
     private void setToolbar(){
@@ -112,11 +119,25 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            imageUri = data.getData();
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            ImageView imageView = (ImageView) findViewById(R.id.iv_image);
-            imageView.setImageBitmap(photo);
+
+        switch (requestCode){
+            case CAMERA_REQUEST:
+                if (resultCode == Activity.RESULT_OK){
+                    imageUri = data.getData();
+                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+                    ImageView imageView = (ImageView) findViewById(R.id.iv_image);
+                    imageView.setImageBitmap(photo);
+                }
+                break;
+            case LOAD_IMAGE:
+                if (resultCode == Activity.RESULT_OK){
+                    imageUri = data.getData();
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imageUri.getPath());
+
+                    ImageView imageView = (ImageView) findViewById(R.id.iv_image);
+                    imageView.setImageBitmap(myBitmap);
+                }
+                break;
         }
     }
 }
